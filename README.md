@@ -1,49 +1,88 @@
 # What is this?
 
-A simple scaffholding tool for creating a new project to be published to npm.  
-It provides a build command that will compile your code to a CommonJS Node 14.16 target, allowing named imports for CommonJS packages inside ESM files.  
-The package contains a simple "hello world" based on TypeScript, built on esbuild, tested through Jest and linted with ESLint and Prettier.  
-It also provides a Husky pre-commit hook to run the linter and tests before committing.
+This is a function which returns a simple EventEmitter.  
+It is a simpler implementation of the EventEmitter class from NodeJS.  
+It is not meant to be a replacement for the NodeJS EventEmitter, but rather a simple alternative for those who don't want to use the NodeJS EventEmitter.  
+It is also a good way to learn how Event Emitting works as a concept.
 
-## What does it mean?
+# How do I install it?
 
-If you try to run `npm run build` you will be able to import the `sayHello` function from the `index.js` file, both via `require` and `import` syntax.
-
-### Importing via `require`
-
-```js
-const { sayHello } = require('my-package');
-```
-
-### Importing via `import`
-
-```js
-import { sayHello } from 'my-package';
-```
-
-# Why?
-
-I got tired of copying and pasting the same files over and over again.  
-This is a simple tool to create a new project with the basic files needed to publish to npm.
-
-# How can I personalize it?
-
-You can change the `package.json` file to your liking, bringing your own package name and description.  
-Please, remember to give me a star if you like the project!
-
-## How To Install?
+You can install it by using the following command:
 
 ```bash
-git clone git://github.com/Cadienvan/npm-package-ts-scaffholding.git package_name
-cd package_name
-npm install
+npm install @cadienvan/event-emitter
 ```
 
-## What's Inside?
+# How to use it?
 
-- Typescript
-- Jest
-- Eslint
-- Prettier
-- Husky
-- Esbuild
+Simply import the module and start using it as follows:
+
+```js
+import { makeEE } from '@cadienvan/event-emitter';
+const myObject = Object.assign({}, makeEE());
+function listener(data) {
+  console.log(data);
+}
+myObject.$on('event', listener);
+myObject.$emit('event', {});
+```
+
+## Why did I choose to call it makeEE?
+
+I chose to call it makeEE because it is a function which returns an EventEmitter and I didn't want it to conflict with the NodeJS EventEmitter, allowing you to use both in the same project depending on the use case.
+
+# How does this work?
+
+The `makeEE` function returns an object with the following properties:
+
+---
+
+### $on
+
+The `$on` function takes two arguments: the event name and the listener function.
+
+```js
+myObject.$on('event', listener);
+```
+
+---
+
+### $off
+
+The `$off` function takes two arguments: the event name and the listener function.
+
+```js
+myObject.$off('event', listener);
+```
+
+---
+
+### $emit
+
+The `$emit` function takes two arguments: the event name and the data to be passed to the listener function.
+
+```js
+myObject.$emit('event', data);
+```
+
+---
+
+### $once
+
+The `$once` function takes two arguments: the event name and the listener function.
+
+```js
+myObject.$once('event', listener);
+```
+
+# Tests
+
+You can run the tests by using the following command:
+
+```bash
+npm test
+```
+
+# Scaffolding
+
+This project was generated using Cadienvan's own [npm-package-ts-scaffolding](https://github.com/Cadienvan/npm-package-ts-scaffolding) so it has all the necessary tools to develop, test and publish a TypeScript package importable both via CommonJS and ES Modules.
